@@ -63,7 +63,24 @@ jobs:
 
       - name: Run tests
         run: bundle exec rake rspec
-        
+
+  # since we are packaging a pure ruby gem, we only need to package
+  # once for each ruby version, not once on every platform.
+  #
+  # and maybe we don't even need to package for each ruby version?
+  package:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby:
+          - 3.1.2
+          - 3.3
+    steps:
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+
       - name: Build gem
         run: bundle exec rake gem
 
@@ -74,7 +91,7 @@ jobs:
           path: pkg/fig-*.gem
 
   test-gem-installation-linux:
-    needs: build
+    needs: package
     runs-on: ubuntu-latest
     container:
       image: ${{ matrix.os }}
