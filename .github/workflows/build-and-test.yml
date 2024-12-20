@@ -85,6 +85,15 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
 
+      - run: gem update --system $RUBYGEMS_VER
+
+      - name: Install gem dependencies
+        env:
+          CC: false
+          LD: false
+          CXX: false
+        run: bundle install
+
       - name: Build gem
         run: bundle exec rake gem
 
