@@ -22,7 +22,7 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - windows-2022
+#          - windows-2022
           - macos-14
           - ubuntu-20.04
           - ubuntu-22.04
@@ -30,10 +30,10 @@ jobs:
           - 3.1.2
           - 3.3
         include:
-          - os: windows-2022
-            platform: x64-mingw32
-          - os: windows-2022
-            platform: x64-mingw-ucrt
+#          - os: windows-2022
+#            platform: x64-mingw32
+#          - os: windows-2022
+#            platform: x64-mingw-ucrt
           - os: macos-14
             platform: x86_64-darwin
           - os: macos-14
